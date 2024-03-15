@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -27,13 +26,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.diceroller.ui.theme.DiceRollerTheme
+import androidx.compose.material3.Button as Button
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             DiceRollerTheme {
-                DiceRollerApp()
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    DiceRollerApp()
+                }
             }
         }
     }
@@ -44,7 +49,8 @@ class MainActivity : ComponentActivity() {
 fun DiceRollerApp() {
     DiceWithButtonAndImage(modifier = Modifier
         .fillMaxSize()
-        .wrapContentSize(Alignment.Center))
+        .wrapContentSize(Alignment.Center)
+    )
 }
 
 @Composable
@@ -60,10 +66,11 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
     }
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Image(painter = painterResource(imageResource), contentDescription = result.toString())
+
         Button(
             onClick = { result = (1..6).random() },
         ) {
-            Text(stringResource(R.string.roll), fontSize = 24.sp)
+            Text(text = stringResource(R.string.roll), fontSize = 24.sp)
         }
     }
 }
